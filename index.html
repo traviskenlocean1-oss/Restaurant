@@ -510,12 +510,11 @@
     .menu-modal {
       position: fixed; inset: 0; z-index: 500;
       background: rgba(5,5,5,.97);
-      display: grid;
-      grid-template-rows: 68px 1fr;   /* header row + scrollable body row */
+      display: flex; flex-direction: column;
       opacity: 0; pointer-events: none;
       transition: opacity .35s var(--ease);
     }
-    .menu-modal.open { opacity: 1; pointer-events: all; }
+    .menu-modal.open { opacity: 1; pointer-events: auto; }
     .mm-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 4vw; border-bottom: 1px solid rgba(200,169,110,.15);
@@ -536,17 +535,16 @@
     }
     .mm-close:hover { background: rgba(200,169,110,.1); border-color: var(--gold); }
     .mm-body {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      min-height: 0;          /* lets this grid row stay bounded */
+      display: flex; flex: 1;
+      min-height: 0;
       overflow: hidden;
     }
     .mm-sidebar {
+      flex: 0 0 220px;
       border-right: 1px solid rgba(200,169,110,.14);
       background: rgba(255,255,255,.02);
       padding: 2rem 0;
       overflow-y: auto;
-      min-height: 0;          /* critical: allows overflow-y:auto to work */
       display: flex; flex-direction: column; gap: .2rem;
     }
     .mm-cat-btn {
@@ -567,8 +565,9 @@
     .mm-cat-btn.active { color: var(--white); background: rgba(200,169,110,.08); }
     .mm-cat-btn.active::before { transform: scaleY(1); }
     .mm-content {
+      flex: 1;
       overflow-y: auto;
-      min-height: 0;          /* critical: same reason as sidebar */
+      min-height: 0;
       padding: 3.5rem 5vw 5rem;
     }
     .mm-panel { display: none; }
@@ -616,10 +615,9 @@
     }
     .mm-divider::after { content:''; flex:1; height:1px; background:rgba(200,169,110,.2); }
     @media (max-width: 720px) {
-      .menu-modal { grid-template-rows: 56px 1fr; }
       .mm-header { height: 56px; }
-      .mm-body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
-      .mm-sidebar { flex-direction: row; overflow-x: auto; overflow-y: hidden; min-height: unset; padding: .6rem 1rem; border-right: none; border-bottom: 1px solid rgba(200,169,110,.12); gap: .35rem; }
+      .mm-body { flex-direction: column; }
+      .mm-sidebar { flex: 0 0 auto; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: .6rem 1rem; border-right: none; border-bottom: 1px solid rgba(200,169,110,.12); gap: .35rem; }
       .mm-cat-btn { padding: .5rem 1rem; white-space: nowrap; flex-shrink: 0; width: auto; }
       .mm-cat-btn::before { display: none; }
       .mm-cat-btn.active { background: rgba(200,169,110,.14); color: var(--white); }
@@ -655,9 +653,20 @@
     .res-success-row:last-child { border-bottom: none; }
     .res-success-row strong { color: var(--white); font-weight: 400; }
     .res-new-btn { margin-top: .5rem; }
+
+    /* ── SCROLL PROGRESS ── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      height: 2px; width: 0%;
+      background: linear-gradient(to right, var(--gold), var(--gold2));
+      transition: width .1s linear;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
+
+  <div id="scroll-progress"></div>
 
   <!-- NAV -->
   <nav id="main-nav">
@@ -679,7 +688,7 @@
   <section id="hero">
     <div class="hero-video-wrap">
       <iframe
-        src="https://www.youtube.com/embed/xNN7iTA57jM?autoplay=1&mute=1&loop=1&playlist=xNN7iTA57jM&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&disablekb=1&fs=0&color=white"
+        src="https://www.youtube.com/embed/W7LqBq5X3aU?autoplay=1&mute=1&loop=1&playlist=W7LqBq5X3aU&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&disablekb=1&fs=0&start=1"
         allow="autoplay; encrypted-media"
         allowfullscreen
         title="Hero background video"
@@ -709,35 +718,35 @@
     </div>
     <div class="featured-scroll" id="feat-scroll">
       <div class="feat-card">
-        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80" alt="Omakase Nigiri"/>
+        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80" alt="Omakase Nigiri" loading="lazy"/>
         <div class="feat-card-info">
           <div class="feat-card-name">Omakase Nigiri</div>
           <div class="feat-card-tag">Chef's Selection · 12 Pieces</div>
         </div>
       </div>
       <div class="feat-card">
-        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80" alt="Black Garlic Ramen"/>
+        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80" alt="Black Garlic Ramen" loading="lazy"/>
         <div class="feat-card-info">
           <div class="feat-card-name">Black Garlic Ramen</div>
           <div class="feat-card-tag">Signature Bowl · Wagyu Chashu</div>
         </div>
       </div>
       <div class="feat-card">
-        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Robata A5 Wagyu"/>
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Robata A5 Wagyu" loading="lazy"/>
         <div class="feat-card-info">
           <div class="feat-card-name">Robata A5 Wagyu</div>
           <div class="feat-card-tag">Grilled · Truffle Ponzu</div>
         </div>
       </div>
       <div class="feat-card">
-        <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&q=80" alt="Shiso Margarita"/>
+        <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&q=80" alt="Shiso Margarita" loading="lazy"/>
         <div class="feat-card-info">
           <div class="feat-card-name">Shiso Margarita</div>
           <div class="feat-card-tag">Signature Cocktail</div>
         </div>
       </div>
       <div class="feat-card">
-        <img src="https://images.unsplash.com/photo-1582450871972-ab5ca641643d?w=600&q=80" alt="Spicy Tuna Crispy Rice"/>
+        <img src="https://images.unsplash.com/photo-1582450871972-ab5ca641643d?w=600&q=80" alt="Spicy Tuna Crispy Rice" loading="lazy"/>
         <div class="feat-card-info">
           <div class="feat-card-name">Crispy Rice Tuna</div>
           <div class="feat-card-tag">Small Plates · Jalapeño</div>
@@ -753,7 +762,7 @@
       <!-- Left: gold-framed portrait photo -->
       <div class="about-frame">
         <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80"
-             alt="KŌSAI chef at the omakase bar"/>
+             alt="KŌSAI chef at the omakase bar" loading="lazy"/>
         <span class="about-frame-caption">Chef · Omakase Bar · Brickell</span>
       </div>
 
@@ -805,7 +814,7 @@
     <h2 class="s-title">A Journey in<br/><em>Every Bite.</em></h2>
     <div class="menu-grid">
       <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=700&q=80" alt="Omakase"/>
+        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=700&q=80" alt="Omakase" loading="lazy"/>
         <div class="menu-item-overlay">
           <div class="menu-item-cat">Omakase</div>
           <div class="menu-item-name">Chef's Tasting<br/>Experience</div>
@@ -814,7 +823,7 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=700&q=80" alt="Robata"/>
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=700&q=80" alt="Robata" loading="lazy"/>
         <div class="menu-item-overlay">
           <div class="menu-item-cat">Robata Grill</div>
           <div class="menu-item-name">Binchotan<br/>Signatures</div>
@@ -823,7 +832,7 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=700&q=80" alt="Bowls"/>
+        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=700&q=80" alt="Bowls" loading="lazy"/>
         <div class="menu-item-overlay">
           <div class="menu-item-cat">Noodles &amp; Bowls</div>
           <div class="menu-item-name">Signature<br/>Ramen</div>
@@ -840,7 +849,7 @@
   <!-- HAPPY HOUR -->
   <section id="happy-hour">
     <div class="hh-image">
-      <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=900&q=80" alt="KŌSAI cocktails"/>
+      <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=900&q=80" alt="KŌSAI cocktails" loading="lazy"/>
     </div>
     <div class="hh-content">
       <div class="hh-label">Daily · Monday – Friday</div>
@@ -979,7 +988,7 @@
   <!-- ORDER CTA -->
   <section id="order-cta">
     <div class="bg">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80" alt="Order KŌSAI online"/>
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80" alt="Order KŌSAI online" loading="lazy"/>
     </div>
     <div class="order-box">
       <div class="s-eyebrow">Skip the Line</div>
@@ -1191,6 +1200,13 @@
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.normalizeScroll(false);
 
+    // ── Scroll progress bar
+    const progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+      progressBar.style.width = pct + '%';
+    }, { passive: true });
 
     // ── Nav scroll shadow
     const nav = document.getElementById('main-nav');
@@ -1246,18 +1262,21 @@
     });
 
     // ── Hamburger (mobile)
+    const navLinks = document.querySelector('.nav-links');
+    function closeNav() { navLinks.style.display = ''; }
     document.getElementById('hamburger').addEventListener('click', () => {
-      const links = document.querySelector('.nav-links');
-      if (links.style.display === 'flex') {
-        links.style.display = '';
+      if (navLinks.style.display === 'flex') {
+        closeNav();
       } else {
-        Object.assign(links.style, {
+        Object.assign(navLinks.style, {
           display:'flex', flexDirection:'column', position:'fixed',
           top:'72px', left:'0', right:'0', background:'rgba(8,8,8,.97)',
           padding:'2rem 2rem 3rem', gap:'1.8rem', zIndex:'99'
         });
       }
     });
+    // Close mobile nav when any link is tapped
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
 
     // ── FULL MENU MODAL ──────────────────────────────────
     const menuModal  = document.getElementById('menu-modal');
@@ -1293,12 +1312,14 @@
         btn.classList.add('active');
         const panel = document.getElementById('mm-' + cat);
         panel.classList.add('active');
-        panel.querySelector('.mm-content') && (panel.querySelector('.mm-content').scrollTop = 0);
-        // scroll mm-content to top
         document.querySelector('.mm-content').scrollTop = 0;
         gsap.from('#mm-' + cat + ' .mm-item', { opacity:0, y:14, duration:.45, stagger:.05, ease:'power3.out' });
       });
     });
+
+    // ── Prevent past dates in reservation form
+    const dateInput = document.getElementById('f-date');
+    if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
 
     // ── RESERVATION FORM INTERCEPT ───────────────────────
     const resForm    = document.getElementById('res-form');
