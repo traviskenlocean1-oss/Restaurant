@@ -77,6 +77,7 @@
     }
     .hero-video-wrap {
       position: absolute; inset: 0; z-index: 0; overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1553621042-f6e147245754?w=1920&q=80') center/cover no-repeat;
     }
     .hero-video-wrap video {
       position: absolute; inset: 0;
@@ -527,13 +528,14 @@
     }
     .mm-header-label::before { content:''; width:24px; height:1px; background:var(--gold); }
     .mm-close {
-      background: none; border: 1px solid rgba(200,169,110,.3); color: var(--white);
-      width: 44px; height: 44px; cursor: pointer; font-size: 1.1rem;
-      display: flex; align-items: center; justify-content: center;
+      background: var(--black); border: 1px solid rgba(200,169,110,.45); color: var(--white);
+      width: 48px; height: 48px; cursor: pointer; font-size: 1.2rem;
+      display: none; align-items: center; justify-content: center;
       transition: background .2s, border-color .2s;
-      position: relative; z-index: 3;
+      position: fixed; top: 1.1rem; right: 1.5rem; z-index: 600;
     }
-    .mm-close:hover { background: rgba(200,169,110,.1); border-color: var(--gold); }
+    .mm-close.visible { display: flex; }
+    .mm-close:hover { background: rgba(200,169,110,.15); border-color: var(--gold); }
     .mm-body {
       display: flex; flex: 1;
       min-height: 0;
@@ -573,9 +575,10 @@
     .mm-panel { display: none; }
     .mm-panel.active { display: block; }
     .mm-panel-img {
-      width: 100%; height: 220px; object-fit: cover;
-      display: block; margin-bottom: 2rem;
-      filter: brightness(.88);
+      display: block; height: 240px; object-fit: cover;
+      width: calc(100% + 10vw); margin-left: -5vw; margin-top: -3.5rem;
+      margin-bottom: 2.5rem;
+      filter: brightness(.82);
     }
     .mm-panel-title {
       font-family: var(--fc); font-size: clamp(2rem, 4vw, 3rem);
@@ -692,7 +695,8 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-video-wrap">
-      <video autoplay muted loop playsinline aria-hidden="true">
+      <video autoplay muted loop playsinline aria-hidden="true"
+        poster="https://images.unsplash.com/photo-1553621042-f6e147245754?w=1920&q=80">
         <source src="https://pixabay.com/videos/download/video-36458_medium.mp4" type="video/mp4"/>
       </video>
     </div>
@@ -1055,12 +1059,14 @@
     <button class="em-bar-close" id="em-close" aria-label="Dismiss">✕</button>
   </div>
 
+  <!-- CLOSE BUTTON — fixed viewport, z-index 600, zero stacking interference -->
+  <button class="mm-close" id="close-menu-modal" aria-label="Close menu">✕</button>
+
   <!-- FULL MENU MODAL -->
   <div class="menu-modal" id="menu-modal" role="dialog" aria-modal="true" aria-label="Full Menu">
     <div class="mm-header">
       <div class="mm-logo">KŌ<span>SAI</span></div>
       <span class="mm-header-label">Full Menu</span>
-      <button class="mm-close" id="close-menu-modal" aria-label="Close menu" onclick="document.getElementById('menu-modal').classList.remove('open');document.body.style.overflow=''">✕</button>
     </div>
     <div class="mm-body">
       <!-- Category sidebar -->
@@ -1293,12 +1299,13 @@
 
     function openMenu() {
       menuModal.classList.add('open');
+      closeBtn.classList.add('visible');
       document.body.style.overflow = 'hidden';
-      // animate first panel items in
       gsap.from('#mm-omakase .mm-item', { opacity:0, y:16, duration:.5, stagger:.06, ease:'power3.out', delay:.1 });
     }
     function closeMenu() {
       menuModal.classList.remove('open');
+      closeBtn.classList.remove('visible');
       document.body.style.overflow = '';
     }
 
