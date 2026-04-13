@@ -660,9 +660,9 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-video-wrap">
-      <video autoplay muted loop playsinline id="hero-vid">
-        <!-- Drop your own hero-bg.mp4 in the repo root to override this -->
-        <source src="hero-bg.mp4" type="video/mp4"/>
+      <!-- Drop hero-bg.mp4 in repo root to use your own clip -->
+      <video autoplay muted loop playsinline id="hero-vid"
+        src="https://videos.pexels.com/video-files/3770564/3770564-hd_1920_1080_25fps.mp4">
       </video>
     </div>
     <div class="hero-content">
@@ -1170,15 +1170,23 @@
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.normalizeScroll(false);
 
-    // ── Hero video: if local file missing, stream a hosted food video
+    // ── Hero video fallback chain
     (function() {
       const vid = document.getElementById('hero-vid');
-      const FALLBACK = 'https://videos.pexels.com/video-files/3770564/3770564-hd_1920_1080_25fps.mp4';
-      // Check if local file loads; if not, swap source
-      const localSrc = vid.querySelector('source').src;
-      fetch(localSrc, { method: 'HEAD' })
-        .then(r => { if (!r.ok) { vid.src = FALLBACK; vid.load(); vid.play().catch(()=>{}); } })
-        .catch(() => { vid.src = FALLBACK; vid.load(); vid.play().catch(()=>{}); });
+      const sources = [
+        'https://videos.pexels.com/video-files/3770564/3770564-hd_1920_1080_25fps.mp4',
+        'https://videos.pexels.com/video-files/4253960/4253960-hd_1920_1080_24fps.mp4',
+        'https://videos.pexels.com/video-files/2928382/2928382-hd_1920_1080_25fps.mp4',
+      ];
+      let idx = 0;
+      vid.addEventListener('error', function retry() {
+        if (idx < sources.length) {
+          vid.src = sources[idx++];
+          vid.load();
+          vid.play().catch(()=>{});
+        }
+      }, true);
+      vid.play().catch(()=>{ vid.src = sources[idx++]; vid.load(); vid.play().catch(()=>{}); });
     })();
 
     // ── Nav scroll shadow
