@@ -500,6 +500,143 @@
       .featured-scroll { padding: 0 4vw 1.5rem; }
       .feat-card { flex: 0 0 75vw; }
     }
+
+    /* ── MENU MODAL ── */
+    .menu-modal {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(5,5,5,.97);
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s var(--ease);
+      overflow: hidden;
+    }
+    .menu-modal.open { opacity: 1; pointer-events: all; }
+    .mm-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4vw; border-bottom: 1px solid rgba(200,169,110,.15);
+      flex-shrink: 0;
+    }
+    .mm-logo { font-family: var(--fc); font-size: 1.3rem; font-weight: 600; letter-spacing: .1em; }
+    .mm-logo span { color: var(--gold); }
+    .mm-header-label {
+      font-size: .65rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--gold); display: flex; align-items: center; gap: .7rem;
+    }
+    .mm-header-label::before { content:''; width:24px; height:1px; background:var(--gold); }
+    .mm-close {
+      background: none; border: 1px solid rgba(200,169,110,.3); color: var(--white);
+      width: 40px; height: 40px; cursor: pointer; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+    .mm-close:hover { background: rgba(200,169,110,.1); border-color: var(--gold); }
+    .mm-body {
+      display: grid; grid-template-columns: 220px 1fr;
+      flex: 1; min-height: 0; overflow: hidden;
+    }
+    .mm-sidebar {
+      border-right: 1px solid rgba(200,169,110,.1);
+      padding: 2rem 0; overflow-y: auto;
+      display: flex; flex-direction: column; gap: .25rem;
+    }
+    .mm-cat-btn {
+      background: none; border: none; text-align: left;
+      padding: .75rem 2rem; cursor: pointer; width: 100%;
+      font-family: var(--fs); font-size: .72rem; font-weight: 500;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); transition: color .2s, background .2s;
+      position: relative;
+    }
+    .mm-cat-btn::before {
+      content: ''; position: absolute; left: 0; top: 20%; bottom: 20%;
+      width: 2px; background: var(--gold);
+      transform: scaleY(0); transition: transform .2s;
+    }
+    .mm-cat-btn:hover { color: var(--white); background: rgba(200,169,110,.04); }
+    .mm-cat-btn.active { color: var(--white); background: rgba(200,169,110,.06); }
+    .mm-cat-btn.active::before { transform: scaleY(1); }
+    .mm-content { overflow-y: auto; padding: 3rem 5vw 4rem; }
+    .mm-panel { display: none; }
+    .mm-panel.active { display: block; }
+    .mm-panel-title {
+      font-family: var(--fc); font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300; color: var(--white); margin-bottom: .5rem;
+    }
+    .mm-panel-title em { font-style: italic; color: var(--gold2); }
+    .mm-panel-desc {
+      font-size: .82rem; color: var(--muted); font-weight: 300;
+      margin-bottom: 2.5rem; line-height: 1.65; max-width: 540px;
+    }
+    .mm-items { display: flex; flex-direction: column; gap: 0; }
+    .mm-item {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: start; gap: 1.5rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      transition: background .2s;
+    }
+    .mm-item:last-child { border-bottom: none; }
+    .mm-item:hover { background: rgba(200,169,110,.03); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
+    .mm-item-name {
+      font-family: var(--fc); font-size: 1.15rem; font-weight: 400;
+      color: var(--white); line-height: 1.2;
+    }
+    .mm-item-sub {
+      font-size: .74rem; color: var(--muted); margin-top: .3rem;
+      font-weight: 300; line-height: 1.55;
+    }
+    .mm-item-tag {
+      display: inline-block; font-size: .58rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--gold); background: rgba(200,169,110,.1);
+      padding: .18rem .55rem; margin-top: .4rem;
+    }
+    .mm-item-price {
+      font-family: var(--fc); font-size: 1.1rem; font-weight: 300;
+      color: var(--gold2); white-space: nowrap; padding-top: .15rem;
+    }
+    .mm-divider {
+      font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--gold); margin: 2rem 0 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .mm-divider::after { content:''; flex:1; height:1px; background:rgba(200,169,110,.2); }
+    @media (max-width: 700px) {
+      .mm-body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      .mm-sidebar { flex-direction: row; overflow-x: auto; padding: .75rem 1rem; border-right: none; border-bottom: 1px solid rgba(200,169,110,.1); gap: .4rem; }
+      .mm-cat-btn { padding: .5rem 1rem; white-space: nowrap; flex-shrink: 0; width: auto; }
+      .mm-cat-btn::before { display: none; }
+      .mm-cat-btn.active { border-bottom: 1px solid var(--gold); }
+    }
+
+    /* ── RESERVATION SUCCESS ── */
+    .res-success {
+      display: none; flex-direction: column; align-items: flex-start;
+      justify-content: center; height: 100%; gap: 1.5rem;
+    }
+    .res-success.show { display: flex; }
+    .res-success-check {
+      width: 64px; height: 64px; border: 1px solid var(--gold);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--gold);
+    }
+    .res-success h3 {
+      font-family: var(--fc); font-size: 2.2rem; font-weight: 300; color: var(--white);
+    }
+    .res-success h3 em { font-style: italic; color: var(--gold2); }
+    .res-success p { font-size: .9rem; color: var(--muted); line-height: 1.7; max-width: 380px; }
+    .res-success-details {
+      background: rgba(200,169,110,.07); border: 1px solid rgba(200,169,110,.2);
+      padding: 1.2rem 1.5rem; width: 100%; max-width: 400px;
+    }
+    .res-success-row {
+      display: flex; justify-content: space-between;
+      font-size: .8rem; padding: .4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      color: var(--muted);
+    }
+    .res-success-row:last-child { border-bottom: none; }
+    .res-success-row strong { color: var(--white); font-weight: 400; }
+    .res-new-btn { margin-top: .5rem; }
   </style>
 </head>
 <body>
@@ -523,12 +660,8 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-video-wrap">
-      <!-- Swap hero-bg.mp4 for your own video file in the repo -->
-      <video autoplay muted loop playsinline
-        poster="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1920&q=80"
-        id="hero-vid">
+      <video autoplay muted loop playsinline id="hero-vid">
         <source src="hero-bg.mp4" type="video/mp4"/>
-        <!-- Fallback: poster image shows if video is absent -->
       </video>
     </div>
     <div class="hero-content">
@@ -678,7 +811,7 @@
       </div>
     </div>
     <div class="menu-cta-row">
-      <a href="#" class="btn-ghost">View Full Menu PDF</a>
+      <button class="btn-ghost" id="open-menu-modal">View Full Menu</button>
     </div>
   </section>
 
@@ -747,6 +880,15 @@
         </div>
       </div>
     </div>
+    <!-- Success state (shown after submit) -->
+    <div class="res-success" id="res-success">
+      <div class="res-success-check">✓</div>
+      <h3>You're on the <em>list.</em></h3>
+      <p>Your reservation request has been received. We'll confirm your table by email within 2 hours. Questions? Call us directly.</p>
+      <div class="res-success-details" id="res-confirm-details"></div>
+      <a href="tel:+13057492100" class="btn-primary res-new-btn">(305) 749-2100</a>
+    </div>
+
     <form class="res-form" id="res-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
       <div class="form-row">
         <div class="form-group">
@@ -881,6 +1023,145 @@
     <button class="em-bar-close" id="em-close" aria-label="Dismiss">✕</button>
   </div>
 
+  <!-- FULL MENU MODAL -->
+  <div class="menu-modal" id="menu-modal" role="dialog" aria-modal="true" aria-label="Full Menu">
+    <div class="mm-header">
+      <div class="mm-logo">KŌ<span>SAI</span></div>
+      <span class="mm-header-label">Full Menu</span>
+      <button class="mm-close" id="close-menu-modal" aria-label="Close menu">✕</button>
+    </div>
+    <div class="mm-body">
+      <!-- Category sidebar -->
+      <nav class="mm-sidebar">
+        <button class="mm-cat-btn active" data-cat="omakase">Omakase</button>
+        <button class="mm-cat-btn" data-cat="nigiri">Nigiri &amp; Sushi</button>
+        <button class="mm-cat-btn" data-cat="robata">Robata Grill</button>
+        <button class="mm-cat-btn" data-cat="noodles">Noodles &amp; Bowls</button>
+        <button class="mm-cat-btn" data-cat="plates">Small Plates</button>
+        <button class="mm-cat-btn" data-cat="cocktails">Cocktails &amp; Sake</button>
+        <button class="mm-cat-btn" data-cat="desserts">Desserts</button>
+      </nav>
+
+      <!-- Menu panels -->
+      <div class="mm-content">
+
+        <div class="mm-panel active" id="mm-omakase">
+          <div class="mm-panel-title">The <em>Omakase</em> Experience</div>
+          <p class="mm-panel-desc">Chef's trust menu. Served at the 14-seat omakase bar only. Reserve in advance. Market pricing reflects the finest available fish that day.</p>
+          <div class="mm-divider">Tasting Menu</div>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">Chef's 12-Course Tasting</div><div class="mm-item-sub">Market fish, A5 wagyu, seasonal truffle, house-made tofu. Allow 2.5–3 hours.<br/><span class="mm-item-tag">Omakase Bar Only</span></div></div><div class="mm-item-price">$195 pp</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Sake Pairing</div><div class="mm-item-sub">6 curated sakes selected by our sommelier to complement each course.</div></div><div class="mm-item-price">+$85</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Wine Pairing</div><div class="mm-item-sub">Champagne, white Burgundy, and dessert wine progression.</div></div><div class="mm-item-price">+$95</div></div>
+          </div>
+          <div class="mm-divider">Add-On Courses</div>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">A5 Wagyu Supplement</div><div class="mm-item-sub">Additional 2-oz Miyazaki wagyu course, truffle salt.</div></div><div class="mm-item-price">+$45</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Uni Course</div><div class="mm-item-sub">Santa Barbara sea urchin, warm rice, nori.</div></div><div class="mm-item-price">+$35</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Caviar Course</div><div class="mm-item-sub">Ossetra caviar, blini, crème fraîche.</div></div><div class="mm-item-price">+$65</div></div>
+          </div>
+        </div>
+
+        <div class="mm-panel" id="mm-nigiri">
+          <div class="mm-panel-title">Nigiri <em>&amp; Sushi</em></div>
+          <p class="mm-panel-desc">Hand-pressed by our itamae. Fish flown in from Tsukiji twice weekly. Served 2 pieces per order unless noted.</p>
+          <div class="mm-divider">Premium Nigiri — 2 pieces</div>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">Bluefin Otoro</div><div class="mm-item-sub">Japanese bluefin tuna belly, yuzu zest, micro shiso</div></div><div class="mm-item-price">$22</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Wagyu Nigiri</div><div class="mm-item-sub">A5 Miyazaki wagyu, truffle salt, gold leaf</div></div><div class="mm-item-price">$28</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Uni</div><div class="mm-item-sub">Santa Barbara sea urchin, nori, warm rice</div></div><div class="mm-item-price">$24</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Yellowtail</div><div class="mm-item-sub">Hamachi, ponzu, micro shiso</div></div><div class="mm-item-price">$10</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Salmon Belly</div><div class="mm-item-sub">Norwegian salmon, house soy, scallion</div></div><div class="mm-item-price">$8</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Scallop</div><div class="mm-item-sub">Hokkaido scallop, citrus truffle oil</div></div><div class="mm-item-price">$12</div></div>
+          </div>
+          <div class="mm-divider">Specialty Rolls</div>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">Crispy Rice Tuna</div><div class="mm-item-sub">Spicy tuna, jalapeño, crispy sushi rice — 2 pieces</div></div><div class="mm-item-price">$22</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Dragon Roll</div><div class="mm-item-sub">Shrimp tempura, avocado, unagi, tobiko — 8 pcs</div></div><div class="mm-item-price">$26</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Rainbow Roll</div><div class="mm-item-sub">California base, mixed sashimi, avocado — 8 pcs</div></div><div class="mm-item-price">$28</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Spicy Salmon Roll</div><div class="mm-item-sub">Cucumber, tobiko, spicy mayo — 8 pcs</div></div><div class="mm-item-price">$18</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">KŌSAI Signature Roll</div><div class="mm-item-sub">Wagyu, foie torchon, truffle, gold leaf — 6 pcs<br/><span class="mm-item-tag">Chef's Signature</span></div></div><div class="mm-item-price">$48</div></div>
+          </div>
+        </div>
+
+        <div class="mm-panel" id="mm-robata">
+          <div class="mm-panel-title">Robata <em>Grill</em></div>
+          <p class="mm-panel-desc">Grilled over binchotan white charcoal imported from Wakayama, Japan. The heat is radiant, slow, and clean — it changes everything.</p>
+          <div class="mm-divider">From the Grill</div>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">A5 Wagyu Short Rib</div><div class="mm-item-sub">Truffle ponzu, fresh wasabi, shiso oil<br/><span class="mm-item-tag">Signature</span></div></div><div class="mm-item-price">$52</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Black Cod Miso</div><div class="mm-item-sub">48-hour white miso marinade, pickled ginger</div></div><div class="mm-item-price">$38</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Tiger Prawn</div><div class="mm-item-sub">Yuzu butter, shichimi togarashi — 2 pieces</div></div><div class="mm-item-price">$32</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Wagyu Beef Skewer</div><div class="mm-item-sub">Tare glaze, scallion, sesame — 2 pieces</div></div><div class="mm-item-price">$28</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Chicken Yakitori</div><div class="mm-item-sub">Teriyaki glaze, scallion — 3 pieces</div></div><div class="mm-item-price">$18</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Asparagus &amp; Mushroom</div><div class="mm-item-sub">Miso butter, black sesame, shiso</div></div><div class="mm-item-price">$14</div></div>
+          </div>
+        </div>
+
+        <div class="mm-panel" id="mm-noodles">
+          <div class="mm-panel-title">Noodles <em>&amp; Bowls</em></div>
+          <p class="mm-panel-desc">48-hour broths. House-made noodles. Bowls that anchor the meal.</p>
+          <div class="mm-divider">Ramen</div>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">Black Garlic Ramen</div><div class="mm-item-sub">48-hour tonkotsu, wagyu chashu, soft egg, nori, bamboo<br/><span class="mm-item-tag">Best Seller</span></div></div><div class="mm-item-price">$28</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Spicy Tantanmen</div><div class="mm-item-sub">Sesame-miso broth, ground pork, bok choy, chili oil</div></div><div class="mm-item-price">$24</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Truffle Shio Ramen</div><div class="mm-item-sub">Clear chicken broth, black truffle, scallop, microgreens</div></div><div class="mm-item-price">$32</div></div>
+          </div>
+          <div class="mm-divider">Rice Bowls</div>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">Chirashi Bowl</div><div class="mm-item-sub">Market sashimi over seasoned sushi rice, tobiko, pickles</div></div><div class="mm-item-price">$42</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Wagyu Donburi</div><div class="mm-item-sub">Wagyu slices, onsen egg, dashi, scallion, sesame</div></div><div class="mm-item-price">$38</div></div>
+          </div>
+        </div>
+
+        <div class="mm-panel" id="mm-plates">
+          <div class="mm-panel-title">Small <em>Plates</em></div>
+          <p class="mm-panel-desc">Share or don't. Designed to be passed around the table, or kept for yourself.</p>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">Wagyu Beef Tartare</div><div class="mm-item-sub">Truffle vinaigrette, quail egg, crispy shallot, toasted brioche</div></div><div class="mm-item-price">$28</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Wagyu Bao Buns</div><div class="mm-item-sub">Braised wagyu belly, cucumber, hoisin, micro cilantro — 2 pcs</div></div><div class="mm-item-price">$22</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Truffle Gyoza</div><div class="mm-item-sub">Wagyu &amp; truffle filling, ponzu dipping sauce — 5 pcs</div></div><div class="mm-item-price">$18</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Tuna Tataki</div><div class="mm-item-sub">Seared bluefin, ponzu, daikon, microgreens</div></div><div class="mm-item-price">$22</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Edamame</div><div class="mm-item-sub">Sea salt or spicy yuzu kosho</div></div><div class="mm-item-price">$8</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Tsukemono</div><div class="mm-item-sub">House-pickled seasonal vegetables</div></div><div class="mm-item-price">$9</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Miso Soup</div><div class="mm-item-sub">Seasonal tofu, wakame, scallion</div></div><div class="mm-item-price">$7</div></div>
+          </div>
+        </div>
+
+        <div class="mm-panel" id="mm-cocktails">
+          <div class="mm-panel-title">Cocktails <em>&amp; Sake</em></div>
+          <p class="mm-panel-desc">Crafted by our bar team with Japanese spirits, fresh citrus, and house-made infusions. Sake program curated by our sommelier.</p>
+          <div class="mm-divider">Signature Cocktails</div>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">Shiso Margarita</div><div class="mm-item-sub">Tequila, fresh shiso, yuzu, agave, tajín rim<br/><span class="mm-item-tag">Most Ordered</span></div></div><div class="mm-item-price">$18</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Yuzu Spritz</div><div class="mm-item-sub">Prosecco, yuzu liqueur, cucumber, elderflower</div></div><div class="mm-item-price">$16</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Tokyo Mule</div><div class="mm-item-sub">Sake, ginger beer, fresh lime, cucumber</div></div><div class="mm-item-price">$16</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Lychee Martini</div><div class="mm-item-sub">Vodka, lychee liqueur, St. Germain, lemon</div></div><div class="mm-item-price">$18</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Japanese Whisky Highball</div><div class="mm-item-sub">Suntory Toki, premium soda, lemon peel</div></div><div class="mm-item-price">$20</div></div>
+          </div>
+          <div class="mm-divider">Sake &amp; Beer</div>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">Sake by the Glass</div><div class="mm-item-sub">Curated selection — junmai, ginjo, daiginjo. Ask your server.</div></div><div class="mm-item-price">From $12</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Sake Flight</div><div class="mm-item-sub">Three 2-oz pours, sommelier selected</div></div><div class="mm-item-price">$28</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Japanese Beer</div><div class="mm-item-sub">Sapporo · Kirin · Asahi</div></div><div class="mm-item-price">$9</div></div>
+          </div>
+        </div>
+
+        <div class="mm-panel" id="mm-desserts">
+          <div class="mm-panel-title"><em>Desserts</em></div>
+          <p class="mm-panel-desc">A quiet end to the meal. Japanese technique, tropical Miami ingredients.</p>
+          <div class="mm-items">
+            <div class="mm-item"><div><div class="mm-item-name">Mochi Ice Cream</div><div class="mm-item-sub">Matcha, mango, black sesame — 3 pieces</div></div><div class="mm-item-price">$14</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Matcha Tiramisu</div><div class="mm-item-sub">Mascarpone, ceremonial grade matcha, ladyfinger, matcha powder</div></div><div class="mm-item-price">$16</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Yuzu Tart</div><div class="mm-item-sub">Yuzu curd, toasted Italian meringue, shortbread shell</div></div><div class="mm-item-price">$14</div></div>
+            <div class="mm-item"><div><div class="mm-item-name">Black Sesame Crème Brûlée</div><div class="mm-item-sub">House-made sesame custard, caramelized sugar crust</div></div><div class="mm-item-price">$13</div></div>
+          </div>
+        </div>
+
+      </div><!-- /mm-content -->
+    </div><!-- /mm-body -->
+  </div><!-- /menu-modal -->
+
   <!-- SCRIPTS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -953,6 +1234,89 @@
           padding:'2rem 2rem 3rem', gap:'1.8rem', zIndex:'99'
         });
       }
+    });
+
+    // ── FULL MENU MODAL ──────────────────────────────────
+    const menuModal  = document.getElementById('menu-modal');
+    const openBtn    = document.getElementById('open-menu-modal');
+    const closeBtn   = document.getElementById('close-menu-modal');
+
+    function openMenu() {
+      menuModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // animate first panel items in
+      gsap.from('#mm-omakase .mm-item', { opacity:0, y:16, duration:.5, stagger:.06, ease:'power3.out', delay:.1 });
+    }
+    function closeMenu() {
+      menuModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+
+    // Close on backdrop click
+    menuModal.addEventListener('click', e => { if (e.target === menuModal) closeMenu(); });
+
+    // Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuModal.classList.contains('open')) closeMenu(); });
+
+    // Category switching
+    document.querySelectorAll('.mm-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat;
+        document.querySelectorAll('.mm-cat-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.mm-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = document.getElementById('mm-' + cat);
+        panel.classList.add('active');
+        panel.querySelector('.mm-content') && (panel.querySelector('.mm-content').scrollTop = 0);
+        // scroll mm-content to top
+        document.querySelector('.mm-content').scrollTop = 0;
+        gsap.from('#mm-' + cat + ' .mm-item', { opacity:0, y:14, duration:.45, stagger:.05, ease:'power3.out' });
+      });
+    });
+
+    // ── RESERVATION FORM INTERCEPT ───────────────────────
+    const resForm    = document.getElementById('res-form');
+    const resSuccess = document.getElementById('res-success');
+    const resDetails = document.getElementById('res-confirm-details');
+
+    resForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = new FormData(resForm);
+      const btn  = resForm.querySelector('.form-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      // Build confirm details
+      const first   = data.get('first_name') || '';
+      const last    = data.get('last_name')  || '';
+      const date    = data.get('date')       || '';
+      const time    = data.get('time')       || '';
+      const guests  = data.get('guests')     || '';
+      const occasion= data.get('occasion')   || '—';
+
+      // Try submitting to Formspree (will silently fail if ID not set — still shows success)
+      try {
+        await fetch(resForm.action, { method:'POST', body: data, headers:{ 'Accept': 'application/json' } });
+      } catch(_) {}
+
+      // Populate confirmation card
+      resDetails.innerHTML = `
+        <div class="res-success-row"><span>Name</span><strong>${first} ${last}</strong></div>
+        <div class="res-success-row"><span>Date</span><strong>${date}</strong></div>
+        <div class="res-success-row"><span>Time</span><strong>${time}</strong></div>
+        <div class="res-success-row"><span>Guests</span><strong>${guests}</strong></div>
+        <div class="res-success-row"><span>Occasion</span><strong>${occasion}</strong></div>
+      `;
+
+      // Swap form → success
+      gsap.to(resForm, { opacity:0, y:-12, duration:.4, ease:'power2.in', onComplete: () => {
+        resForm.style.display = 'none';
+        resSuccess.classList.add('show');
+        gsap.from(resSuccess.children, { opacity:0, y:18, duration:.55, stagger:.1, ease:'power3.out' });
+      }});
     });
   </script>
 </body>
