@@ -78,13 +78,11 @@
     .hero-video-wrap {
       position: absolute; inset: 0; z-index: 0; overflow: hidden;
     }
-    .hero-video-wrap iframe {
-      position: absolute;
-      width: 100vw;   height: 56.25vw;  /* 16:9 — width drives height */
-      min-height: 100vh; min-width: 177.78vh; /* 16:9 — height drives width */
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      border: none; pointer-events: none;
+    .hero-video-wrap video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      pointer-events: none;
     }
     .hero-video-wrap::after {
       content: '';
@@ -518,7 +516,8 @@
     .mm-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 4vw; border-bottom: 1px solid rgba(200,169,110,.15);
-      height: 68px;
+      height: 68px; flex-shrink: 0;
+      position: relative; z-index: 2;
     }
     .mm-logo { font-family: var(--fc); font-size: 1.3rem; font-weight: 600; letter-spacing: .1em; }
     .mm-logo span { color: var(--gold); }
@@ -529,9 +528,10 @@
     .mm-header-label::before { content:''; width:24px; height:1px; background:var(--gold); }
     .mm-close {
       background: none; border: 1px solid rgba(200,169,110,.3); color: var(--white);
-      width: 40px; height: 40px; cursor: pointer; font-size: 1.1rem;
+      width: 44px; height: 44px; cursor: pointer; font-size: 1.1rem;
       display: flex; align-items: center; justify-content: center;
       transition: background .2s, border-color .2s;
+      position: relative; z-index: 3;
     }
     .mm-close:hover { background: rgba(200,169,110,.1); border-color: var(--gold); }
     .mm-body {
@@ -572,6 +572,11 @@
     }
     .mm-panel { display: none; }
     .mm-panel.active { display: block; }
+    .mm-panel-img {
+      width: 100%; height: 220px; object-fit: cover;
+      display: block; margin-bottom: 2rem;
+      filter: brightness(.88);
+    }
     .mm-panel-title {
       font-family: var(--fc); font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 300; color: var(--white); margin-bottom: .5rem;
@@ -687,13 +692,9 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-video-wrap">
-      <iframe
-        src="https://www.youtube.com/embed/W7LqBq5X3aU?autoplay=1&mute=1&loop=1&playlist=W7LqBq5X3aU&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&disablekb=1&fs=0&start=1"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-        title="Hero background video"
-        aria-hidden="true">
-      </iframe>
+      <video autoplay muted loop playsinline aria-hidden="true">
+        <source src="https://pixabay.com/videos/download/video-36458_medium.mp4" type="video/mp4"/>
+      </video>
     </div>
     <div class="hero-content">
       <div class="hero-eyebrow" id="h-eyebrow">Brickell, Miami · Est. 2022</div>
@@ -1059,7 +1060,7 @@
     <div class="mm-header">
       <div class="mm-logo">KŌ<span>SAI</span></div>
       <span class="mm-header-label">Full Menu</span>
-      <button class="mm-close" id="close-menu-modal" aria-label="Close menu">✕</button>
+      <button class="mm-close" id="close-menu-modal" aria-label="Close menu" onclick="document.getElementById('menu-modal').classList.remove('open');document.body.style.overflow=''">✕</button>
     </div>
     <div class="mm-body">
       <!-- Category sidebar -->
@@ -1077,6 +1078,7 @@
       <div class="mm-content">
 
         <div class="mm-panel active" id="mm-omakase">
+          <img class="mm-panel-img" src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=1200&q=80" alt="Omakase" loading="lazy"/>
           <div class="mm-panel-title">The <em>Omakase</em> Experience</div>
           <p class="mm-panel-desc">Chef's trust menu. Served at the 14-seat omakase bar only. Reserve in advance. Market pricing reflects the finest available fish that day.</p>
           <div class="mm-divider">Tasting Menu</div>
@@ -1094,6 +1096,7 @@
         </div>
 
         <div class="mm-panel" id="mm-nigiri">
+          <img class="mm-panel-img" src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1200&q=80" alt="Nigiri & Sushi" loading="lazy"/>
           <div class="mm-panel-title">Nigiri <em>&amp; Sushi</em></div>
           <p class="mm-panel-desc">Hand-pressed by our itamae. Fish flown in from Tsukiji twice weekly. Served 2 pieces per order unless noted.</p>
           <div class="mm-divider">Premium Nigiri — 2 pieces</div>
@@ -1116,6 +1119,7 @@
         </div>
 
         <div class="mm-panel" id="mm-robata">
+          <img class="mm-panel-img" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=1200&q=80" alt="Robata Grill" loading="lazy"/>
           <div class="mm-panel-title">Robata <em>Grill</em></div>
           <p class="mm-panel-desc">Grilled over binchotan white charcoal imported from Wakayama, Japan. The heat is radiant, slow, and clean — it changes everything.</p>
           <div class="mm-divider">From the Grill</div>
@@ -1130,6 +1134,7 @@
         </div>
 
         <div class="mm-panel" id="mm-noodles">
+          <img class="mm-panel-img" src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=1200&q=80" alt="Noodles & Bowls" loading="lazy"/>
           <div class="mm-panel-title">Noodles <em>&amp; Bowls</em></div>
           <p class="mm-panel-desc">48-hour broths. House-made noodles. Bowls that anchor the meal.</p>
           <div class="mm-divider">Ramen</div>
@@ -1146,6 +1151,7 @@
         </div>
 
         <div class="mm-panel" id="mm-plates">
+          <img class="mm-panel-img" src="https://images.unsplash.com/photo-1582450871972-ab5ca641643d?w=1200&q=80" alt="Small Plates" loading="lazy"/>
           <div class="mm-panel-title">Small <em>Plates</em></div>
           <p class="mm-panel-desc">Share or don't. Designed to be passed around the table, or kept for yourself.</p>
           <div class="mm-items">
@@ -1160,6 +1166,7 @@
         </div>
 
         <div class="mm-panel" id="mm-cocktails">
+          <img class="mm-panel-img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=1200&q=80" alt="Cocktails & Sake" loading="lazy"/>
           <div class="mm-panel-title">Cocktails <em>&amp; Sake</em></div>
           <p class="mm-panel-desc">Crafted by our bar team with Japanese spirits, fresh citrus, and house-made infusions. Sake program curated by our sommelier.</p>
           <div class="mm-divider">Signature Cocktails</div>
@@ -1179,6 +1186,7 @@
         </div>
 
         <div class="mm-panel" id="mm-desserts">
+          <img class="mm-panel-img" src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=1200&q=80" alt="Desserts" loading="lazy"/>
           <div class="mm-panel-title"><em>Desserts</em></div>
           <p class="mm-panel-desc">A quiet end to the meal. Japanese technique, tropical Miami ingredients.</p>
           <div class="mm-items">
