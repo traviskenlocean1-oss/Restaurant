@@ -510,16 +510,16 @@
     .menu-modal {
       position: fixed; inset: 0; z-index: 500;
       background: rgba(5,5,5,.97);
-      display: flex; flex-direction: column;
+      display: grid;
+      grid-template-rows: 68px 1fr;   /* header row + scrollable body row */
       opacity: 0; pointer-events: none;
       transition: opacity .35s var(--ease);
-      overflow: hidden;
     }
     .menu-modal.open { opacity: 1; pointer-events: all; }
     .mm-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.4rem 4vw; border-bottom: 1px solid rgba(200,169,110,.15);
-      flex-shrink: 0;
+      padding: 0 4vw; border-bottom: 1px solid rgba(200,169,110,.15);
+      height: 68px;
     }
     .mm-logo { font-family: var(--fc); font-size: 1.3rem; font-weight: 600; letter-spacing: .1em; }
     .mm-logo span { color: var(--gold); }
@@ -536,31 +536,41 @@
     }
     .mm-close:hover { background: rgba(200,169,110,.1); border-color: var(--gold); }
     .mm-body {
-      display: grid; grid-template-columns: 220px 1fr;
-      flex: 1; min-height: 0; overflow: hidden;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 0;          /* lets this grid row stay bounded */
+      overflow: hidden;
     }
     .mm-sidebar {
-      border-right: 1px solid rgba(200,169,110,.1);
-      padding: 2rem 0; overflow-y: auto;
-      display: flex; flex-direction: column; gap: .25rem;
+      border-right: 1px solid rgba(200,169,110,.14);
+      background: rgba(255,255,255,.02);
+      padding: 2rem 0;
+      overflow-y: auto;
+      min-height: 0;          /* critical: allows overflow-y:auto to work */
+      display: flex; flex-direction: column; gap: .2rem;
     }
     .mm-cat-btn {
       background: none; border: none; text-align: left;
-      padding: .75rem 2rem; cursor: pointer; width: 100%;
-      font-family: var(--fs); font-size: .72rem; font-weight: 500;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--muted); transition: color .2s, background .2s;
+      padding: .8rem 1.8rem; cursor: pointer; width: 100%;
+      font-family: var(--fs); font-size: .7rem; font-weight: 500;
+      letter-spacing: .13em; text-transform: uppercase;
+      color: rgba(245,240,232,.6);
+      transition: color .2s, background .2s;
       position: relative;
     }
     .mm-cat-btn::before {
-      content: ''; position: absolute; left: 0; top: 20%; bottom: 20%;
+      content: ''; position: absolute; left: 0; top: 18%; bottom: 18%;
       width: 2px; background: var(--gold);
-      transform: scaleY(0); transition: transform .2s;
+      transform: scaleY(0); transition: transform .22s;
     }
-    .mm-cat-btn:hover { color: var(--white); background: rgba(200,169,110,.04); }
-    .mm-cat-btn.active { color: var(--white); background: rgba(200,169,110,.06); }
+    .mm-cat-btn:hover { color: var(--white); background: rgba(200,169,110,.05); }
+    .mm-cat-btn.active { color: var(--white); background: rgba(200,169,110,.08); }
     .mm-cat-btn.active::before { transform: scaleY(1); }
-    .mm-content { overflow-y: auto; padding: 3rem 5vw 4rem; }
+    .mm-content {
+      overflow-y: auto;
+      min-height: 0;          /* critical: same reason as sidebar */
+      padding: 3.5rem 5vw 5rem;
+    }
     .mm-panel { display: none; }
     .mm-panel.active { display: block; }
     .mm-panel-title {
@@ -605,12 +615,15 @@
       display: flex; align-items: center; gap: 1rem;
     }
     .mm-divider::after { content:''; flex:1; height:1px; background:rgba(200,169,110,.2); }
-    @media (max-width: 700px) {
+    @media (max-width: 720px) {
+      .menu-modal { grid-template-rows: 56px 1fr; }
+      .mm-header { height: 56px; }
       .mm-body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
-      .mm-sidebar { flex-direction: row; overflow-x: auto; padding: .75rem 1rem; border-right: none; border-bottom: 1px solid rgba(200,169,110,.1); gap: .4rem; }
+      .mm-sidebar { flex-direction: row; overflow-x: auto; overflow-y: hidden; min-height: unset; padding: .6rem 1rem; border-right: none; border-bottom: 1px solid rgba(200,169,110,.12); gap: .35rem; }
       .mm-cat-btn { padding: .5rem 1rem; white-space: nowrap; flex-shrink: 0; width: auto; }
       .mm-cat-btn::before { display: none; }
-      .mm-cat-btn.active { border-bottom: 1px solid var(--gold); }
+      .mm-cat-btn.active { background: rgba(200,169,110,.14); color: var(--white); }
+      .mm-content { padding: 2rem 5vw 3rem; }
     }
 
     /* ── RESERVATION SUCCESS ── */
@@ -666,7 +679,7 @@
   <section id="hero">
     <div class="hero-video-wrap">
       <iframe
-        src="https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1&mute=1&loop=1&playlist=LXb3EKWsInQ&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&disablekb=1&fs=0&color=white"
+        src="https://www.youtube.com/embed/xNN7iTA57jM?autoplay=1&mute=1&loop=1&playlist=xNN7iTA57jM&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&disablekb=1&fs=0&color=white"
         allow="autoplay; encrypted-media"
         allowfullscreen
         title="Hero background video"
