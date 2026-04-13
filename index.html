@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>KŌSAI Miami — Modern Japanese Fusion | Brickell</title>
+  <meta name="description" content="KŌSAI Miami brings elevated Japanese fusion cuisine to the heart of Brickell. Omakase, robata grilling, signature cocktails, and unforgettable nightlife."/>
+  <meta property="og:title" content="KŌSAI Miami — Modern Japanese Fusion"/>
+  <meta property="og:description" content="Elevated Japanese fusion in Brickell, Miami. Reserve your table tonight."/>
+  <meta property="og:image" content="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1200&q=80"/>
+  <meta property="og:type" content="restaurant"/>
+  <link rel="canonical" href="https://kosaimiami.com"/>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Restaurant","name":"KŌSAI Miami","servesCuisine":"Japanese Fusion","priceRange":"$$$","address":{"@type":"PostalAddress","streetAddress":"1420 S Miami Ave","addressLocality":"Miami","addressRegion":"FL","postalCode":"33130"},"telephone":"+13057492100","openingHours":["Mo-Fr 17:00-02:00","Sa-Su 12:00-02:00"],"url":"https://kosaimiami.com"}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black:   #080808;
+      --dark:    #111111;
+      --panel:   #181818;
+      --gold:    #C8A96E;
+      --gold2:   #E2C98A;
+      --red:     #C41E3A;
+      --white:   #F5F0E8;
+      --muted:   rgba(245,240,232,.55);
+      --fg:      #F5F0E8;
+      --fc:      'Cormorant Garamond', Georgia, serif;
+      --fs:      'Inter', system-ui, sans-serif;
+      --ease:    cubic-bezier(.25,.46,.45,.94);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto !important; font-size: 16px; }
+    body { background: var(--black); color: var(--fg); font-family: var(--fs); overflow-x: hidden; padding-bottom: 72px; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 72px;
+      background: transparent;
+      transition: background .4s var(--ease), box-shadow .4s var(--ease);
+    }
+    nav.scrolled { background: rgba(8,8,8,.96); box-shadow: 0 1px 0 rgba(200,169,110,.18); }
+    .nav-logo {
+      font-family: var(--fc); font-size: 1.55rem; font-weight: 600;
+      letter-spacing: .12em; color: var(--white);
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 2.4rem; }
+    .nav-links a {
+      font-family: var(--fs); font-size: .72rem; font-weight: 500;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+      transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--red); color: var(--white) !important;
+      padding: .55rem 1.4rem; font-size: .7rem !important;
+      letter-spacing: .16em !important; text-transform: uppercase;
+      border: none; cursor: pointer; transition: background .25s !important;
+    }
+    .nav-cta:hover { background: #a8192f !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: .3s; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; height: 100vh; min-height: 640px;
+      display: flex; align-items: flex-end;
+      padding: 0 5vw 7vh;
+      overflow: hidden;
+    }
+    .hero-video-wrap {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-video-wrap video, .hero-video-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-video-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,.88) 0%, rgba(8,8,8,.35) 55%, rgba(8,8,8,.15) 100%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 740px; }
+    .hero-eyebrow {
+      display: inline-block; font-family: var(--fs); font-size: .68rem;
+      font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--gold); border-left: 2px solid var(--gold);
+      padding-left: .85rem; margin-bottom: 1.4rem;
+      opacity: 0; transform: translateY(16px);
+    }
+    .hero-h1 {
+      font-family: var(--fc); font-size: clamp(3rem, 6.5vw, 5.5rem);
+      font-weight: 300; line-height: 1.06; color: var(--white);
+      margin-bottom: 1.5rem;
+      opacity: 0; transform: translateY(22px);
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold2); }
+    .hero-sub {
+      font-size: .95rem; font-weight: 300; line-height: 1.7;
+      color: var(--muted); max-width: 480px; margin-bottom: 2.4rem;
+      opacity: 0; transform: translateY(18px);
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; transform: translateY(18px); }
+    .btn-primary {
+      background: var(--red); color: var(--white);
+      padding: .85rem 2.2rem; font-size: .72rem;
+      letter-spacing: .16em; text-transform: uppercase; font-weight: 500;
+      border: none; cursor: pointer; transition: background .25s, transform .2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #a8192f; transform: translateY(-2px); }
+    .btn-ghost {
+      border: 1px solid rgba(200,169,110,.5); color: var(--gold);
+      padding: .85rem 2.2rem; font-size: .72rem;
+      letter-spacing: .16em; text-transform: uppercase; font-weight: 500;
+      cursor: pointer; transition: border-color .25s, color .25s, transform .2s;
+      display: inline-block; background: transparent;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold2); transform: translateY(-2px); }
+    .hero-scroll-hint {
+      position: absolute; bottom: 2rem; right: 4vw; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      font-size: .62rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted); opacity: 0;
+    }
+    .hero-scroll-hint::before {
+      content: ''; display: block; width: 1px; height: 52px;
+      background: linear-gradient(to bottom, transparent, var(--gold));
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--panel); border-top: 1px solid rgba(200,169,110,.18);
+      border-bottom: 1px solid rgba(200,169,110,.18);
+      padding: .85rem 0; overflow: hidden;
+    }
+    .ticker-track {
+      display: flex; width: max-content;
+      animation: tick 55s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      display: flex; align-items: center; gap: 2.2rem;
+      padding: 0 2.2rem; white-space: nowrap;
+      font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--muted); font-weight: 400;
+    }
+    .ticker-dot { color: var(--gold); font-size: .8rem; }
+    @keyframes tick { from { transform: translateX(0) } to { transform: translateX(-33.333%) } }
+
+    /* ── SECTION HEADERS ── */
+    .s-eyebrow {
+      font-family: var(--fs); font-size: .68rem; font-weight: 500;
+      letter-spacing: .22em; text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;
+    }
+    .s-eyebrow::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold); opacity: .45; }
+    .s-title {
+      font-family: var(--fc); font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300; line-height: 1.1; color: var(--white);
+    }
+    .s-title em { font-style: italic; color: var(--gold2); }
+
+    /* ── FEATURED ── */
+    #featured { padding: 6rem 0 4rem; }
+    .featured-header { padding: 0 5vw; margin-bottom: 3rem; }
+    .featured-scroll {
+      display: flex; gap: 1.6rem; padding: 0 5vw 2rem;
+      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    }
+    .featured-scroll::-webkit-scrollbar { display: none; }
+    .feat-card {
+      flex: 0 0 300px; scroll-snap-align: start;
+      position: relative; overflow: hidden; cursor: pointer;
+      opacity: 0; transform: translateY(28px);
+    }
+    .feat-card img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+      transition: transform .55s var(--ease);
+    }
+    .feat-card:hover img { transform: scale(1.05); }
+    .feat-card-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2rem 1.4rem 1.4rem;
+      background: linear-gradient(to top, rgba(8,8,8,.9) 0%, transparent 100%);
+    }
+    .feat-card-name {
+      font-family: var(--fc); font-size: 1.3rem; font-weight: 400; color: var(--white);
+    }
+    .feat-card-tag {
+      font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-top: .3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 680px;
+    }
+    .about-text {
+      padding: 7rem 5vw 7rem 7vw;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--dark);
+    }
+    .about-text p {
+      font-size: 1rem; font-weight: 300; line-height: 1.85;
+      color: var(--muted); margin-top: 1.6rem; max-width: 480px;
+    }
+    .about-text p + p { margin-top: 1rem; }
+    .about-stat-row {
+      display: flex; gap: 3rem; margin-top: 2.8rem;
+    }
+    .about-stat-num {
+      font-family: var(--fc); font-size: 2.8rem; font-weight: 300; color: var(--gold);
+      line-height: 1;
+    }
+    .about-stat-label {
+      font-size: .65rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--muted); margin-top: .4rem;
+    }
+    .about-images {
+      display: grid; grid-template-rows: 1fr 1fr; gap: 3px;
+      overflow: hidden;
+    }
+    .about-images img { width: 100%; height: 100%; object-fit: cover; }
+    .about-btn { margin-top: 2.4rem; display: inline-block; }
+
+    /* ── MENU PREVIEW ── */
+    #menu-preview { padding: 7rem 7vw; background: var(--black); }
+    .menu-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: 3.5rem;
+    }
+    .menu-item {
+      position: relative; overflow: hidden; cursor: pointer;
+      opacity: 0; transform: translateY(24px);
+    }
+    .menu-item img {
+      width: 100%; aspect-ratio: 4/5; object-fit: cover;
+      transition: transform .6s var(--ease), filter .4s;
+    }
+    .menu-item:hover img { transform: scale(1.06); filter: brightness(.75); }
+    .menu-item-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,.85) 0%, rgba(8,8,8,.1) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.8rem;
+    }
+    .menu-item-cat {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .4rem;
+    }
+    .menu-item-name {
+      font-family: var(--fc); font-size: 1.5rem; font-weight: 400; color: var(--white);
+      line-height: 1.15;
+    }
+    .menu-item-desc {
+      font-size: .78rem; color: var(--muted); margin-top: .5rem;
+      line-height: 1.6; font-weight: 300;
+    }
+    .menu-item-price {
+      font-family: var(--fc); font-size: 1.05rem; color: var(--gold2);
+      margin-top: .6rem;
+    }
+    .menu-cta-row { text-align: center; margin-top: 3.5rem; }
+
+    /* ── HAPPY HOUR ── */
+    #happy-hour {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 560px; overflow: hidden;
+    }
+    .hh-image { position: relative; overflow: hidden; }
+    .hh-image img { width: 100%; height: 100%; object-fit: cover; }
+    .hh-image::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(8,8,8,.25);
+    }
+    .hh-content {
+      background: var(--red);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 6vw;
+    }
+    .hh-time {
+      font-family: var(--fc); font-size: clamp(3.5rem, 6vw, 5rem);
+      font-weight: 300; line-height: 1; color: var(--white);
+      letter-spacing: -.01em;
+    }
+    .hh-label {
+      font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(255,255,255,.7); margin-bottom: 1rem;
+    }
+    .hh-items { margin-top: 2rem; display: flex; flex-direction: column; gap: .7rem; }
+    .hh-item {
+      display: flex; justify-content: space-between; align-items: baseline;
+      border-bottom: 1px solid rgba(255,255,255,.15); padding-bottom: .7rem;
+    }
+    .hh-item-name { font-size: .85rem; font-weight: 400; color: rgba(255,255,255,.9); }
+    .hh-item-price {
+      font-family: var(--fc); font-size: 1.15rem; color: var(--white); font-weight: 300;
+    }
+    .hh-note {
+      margin-top: 1.8rem; font-size: .72rem; color: rgba(255,255,255,.55);
+      line-height: 1.65; font-weight: 300;
+    }
+    .hh-btn {
+      margin-top: 2.2rem; display: inline-block;
+      border: 1px solid rgba(255,255,255,.55); color: var(--white);
+      padding: .75rem 1.8rem; font-size: .68rem; letter-spacing: .18em;
+      text-transform: uppercase; transition: background .25s, border-color .25s;
+    }
+    .hh-btn:hover { background: rgba(255,255,255,.12); border-color: white; }
+
+    /* ── RESERVATIONS ── */
+    #reservations {
+      padding: 7rem 7vw;
+      background: var(--dark);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: start;
+    }
+    .res-info .s-title { margin-bottom: 1.4rem; }
+    .res-detail {
+      display: flex; flex-direction: column; gap: 1.6rem; margin-top: 2rem;
+    }
+    .res-detail-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+    .res-detail-icon {
+      width: 36px; height: 36px; border: 1px solid rgba(200,169,110,.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: .85rem; flex-shrink: 0; margin-top: .1rem;
+    }
+    .res-detail-label {
+      font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .3rem;
+    }
+    .res-detail-val { font-size: .9rem; color: var(--white); font-weight: 300; line-height: 1.6; }
+    .res-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .45rem; }
+    .form-group label {
+      font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(200,169,110,.2);
+      color: var(--white); padding: .8rem 1rem; font-size: .88rem;
+      font-family: var(--fs); font-weight: 300; outline: none;
+      transition: border-color .25s; -webkit-appearance: none; border-radius: 0;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select option { background: var(--dark); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-submit {
+      background: var(--red); color: var(--white); border: none; cursor: pointer;
+      padding: 1rem 2.5rem; font-size: .72rem; letter-spacing: .18em;
+      text-transform: uppercase; font-weight: 500; font-family: var(--fs);
+      transition: background .25s, transform .2s; margin-top: .4rem;
+      text-align: center; width: 100%;
+    }
+    .form-submit:hover { background: #a8192f; transform: translateY(-2px); }
+
+    /* ── ORDER CTA ── */
+    #order-cta {
+      position: relative; min-height: 480px;
+      display: flex; align-items: center; justify-content: flex-end;
+      padding: 5rem 8vw;
+      overflow: hidden;
+    }
+    #order-cta .bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    #order-cta .bg img { width: 100%; height: 100%; object-fit: cover; }
+    #order-cta .bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(8,8,8,.1) 0%, rgba(8,8,8,.75) 100%);
+    }
+    .order-box {
+      position: relative; z-index: 1;
+      max-width: 480px; text-align: right;
+      opacity: 0; transform: translateX(30px);
+    }
+    .order-box .s-title { margin-bottom: 1rem; }
+    .order-box p { font-size: .9rem; color: var(--muted); line-height: 1.7; font-weight: 300; margin-bottom: 2rem; }
+    .order-options { display: flex; gap: 1rem; justify-content: flex-end; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); border-top: 1px solid rgba(200,169,110,.12);
+      padding: 5rem 7vw 2.5rem;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+      margin-bottom: 3.5rem;
+    }
+    .footer-brand-name {
+      font-family: var(--fc); font-size: 1.6rem; font-weight: 600;
+      color: var(--white); letter-spacing: .1em; margin-bottom: .8rem;
+    }
+    .footer-brand-name span { color: var(--gold); }
+    .footer-tagline {
+      font-size: .82rem; font-weight: 300; color: var(--muted);
+      line-height: 1.7; max-width: 280px; margin-bottom: 1.8rem;
+    }
+    .footer-socials { display: flex; gap: 1rem; }
+    .social-link {
+      width: 36px; height: 36px; border: 1px solid rgba(200,169,110,.25);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: .75rem;
+      transition: border-color .25s, color .25s;
+    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-col-title {
+      font-size: .62rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem; font-weight: 500;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+    .footer-col ul li a {
+      font-size: .85rem; font-weight: 300; color: var(--muted);
+      transition: color .25s;
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-hours-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: .82rem; font-weight: 300; color: var(--muted);
+      border-bottom: 1px solid rgba(255,255,255,.06); padding-bottom: .5rem; margin-bottom: .5rem;
+    }
+    .footer-hours-row .day { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding-top: 2rem; display: flex;
+      justify-content: space-between; align-items: center;
+    }
+    .footer-legal { font-size: .72rem; color: rgba(245,240,232,.3); font-weight: 300; }
+
+    /* ── EMERGENCY BAR ── */
+    .em-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: var(--black); border-top: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.8rem; padding: .85rem 2rem;
+      font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+    }
+    .em-bar-text { color: var(--muted); }
+    .em-bar-text strong { color: var(--gold); }
+    .em-bar a {
+      background: var(--red); color: var(--white);
+      padding: .45rem 1.2rem; font-size: .65rem; letter-spacing: .16em;
+      text-transform: uppercase; transition: background .25s;
+    }
+    .em-bar a:hover { background: #a8192f; }
+    .em-bar-close {
+      position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: var(--muted); font-size: 1.1rem;
+      cursor: pointer; padding: .3rem; line-height: 1;
+    }
+    .em-bar-close:hover { color: var(--white); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.6rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      #about { grid-template-columns: 1fr; }
+      .about-images { display: none; }
+      .about-text { padding: 4rem 6vw; }
+      .menu-grid { grid-template-columns: 1fr; }
+      #happy-hour { grid-template-columns: 1fr; }
+      .hh-image { aspect-ratio: 16/7; }
+      #reservations { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .order-options { justify-content: flex-start; }
+      .order-box { text-align: left; }
+    }
+    @media (max-width: 600px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .featured-scroll { padding: 0 4vw 1.5rem; }
+      .feat-card { flex: 0 0 75vw; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="#hero" class="nav-logo">KŌ<span>SAI</span></a>
+    <div class="nav-links">
+      <a href="#menu-preview">Menu</a>
+      <a href="#happy-hour">Happy Hour</a>
+      <a href="#about">Our Story</a>
+      <a href="#reservations">Reservations</a>
+      <a href="tel:+13057492100">(305) 749-2100</a>
+      <a href="#reservations" class="nav-cta">Reserve Now</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-video-wrap">
+      <!-- Swap hero-bg.mp4 for your own video file in the repo -->
+      <video autoplay muted loop playsinline
+        poster="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1920&q=80"
+        id="hero-vid">
+        <source src="hero-bg.mp4" type="video/mp4"/>
+        <!-- Fallback: poster image shows if video is absent -->
+      </video>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow" id="h-eyebrow">Brickell, Miami · Est. 2022</div>
+      <h1 class="hero-h1" id="h-title">Where Tokyo<br/><em>Meets Miami.</em></h1>
+      <p class="hero-sub" id="h-sub">
+        Omakase-inspired Japanese fusion, robata grilling, and craft cocktails
+        in the heart of Brickell. Every dish tells a story of two worlds colliding.
+      </p>
+      <div class="hero-btns" id="h-btns">
+        <a href="#reservations" class="btn-primary">Reserve a Table</a>
+        <a href="#menu-preview" class="btn-ghost">Explore the Menu</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" id="h-scroll" aria-hidden="true">Scroll</div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <!-- Items duplicated 3× for seamless loop -->
+      <div class="ticker-item">Open Daily Noon–Late <span class="ticker-dot">◆</span> Happy Hour 4–7 PM <span class="ticker-dot">◆</span> Brickell, Miami <span class="ticker-dot">◆</span> Omakase · Robata · Cocktails <span class="ticker-dot">◆</span> Reservations Recommended <span class="ticker-dot">◆</span> Private Dining Available <span class="ticker-dot">◆</span></div>
+      <div class="ticker-item">Open Daily Noon–Late <span class="ticker-dot">◆</span> Happy Hour 4–7 PM <span class="ticker-dot">◆</span> Brickell, Miami <span class="ticker-dot">◆</span> Omakase · Robata · Cocktails <span class="ticker-dot">◆</span> Reservations Recommended <span class="ticker-dot">◆</span> Private Dining Available <span class="ticker-dot">◆</span></div>
+      <div class="ticker-item">Open Daily Noon–Late <span class="ticker-dot">◆</span> Happy Hour 4–7 PM <span class="ticker-dot">◆</span> Brickell, Miami <span class="ticker-dot">◆</span> Omakase · Robata · Cocktails <span class="ticker-dot">◆</span> Reservations Recommended <span class="ticker-dot">◆</span> Private Dining Available <span class="ticker-dot">◆</span></div>
+    </div>
+  </div>
+
+  <!-- FEATURED DISHES -->
+  <section id="featured">
+    <div class="featured-header">
+      <div class="s-eyebrow">Chef's Selections</div>
+      <h2 class="s-title">Crafted With<br/><em>Intention.</em></h2>
+    </div>
+    <div class="featured-scroll" id="feat-scroll">
+      <div class="feat-card">
+        <img src="https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=600&q=80" alt="Omakase Nigiri"/>
+        <div class="feat-card-info">
+          <div class="feat-card-name">Omakase Nigiri</div>
+          <div class="feat-card-tag">Chef's Selection · 12 Pieces</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80" alt="Black Garlic Ramen"/>
+        <div class="feat-card-info">
+          <div class="feat-card-name">Black Garlic Ramen</div>
+          <div class="feat-card-tag">Signature Bowl · Wagyu Chashu</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Robata A5 Wagyu"/>
+        <div class="feat-card-info">
+          <div class="feat-card-name">Robata A5 Wagyu</div>
+          <div class="feat-card-tag">Grilled · Truffle Ponzu</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&q=80" alt="Shiso Margarita"/>
+        <div class="feat-card-info">
+          <div class="feat-card-name">Shiso Margarita</div>
+          <div class="feat-card-tag">Signature Cocktail</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <img src="https://images.unsplash.com/photo-1582450871972-ab5ca641643d?w=600&q=80" alt="Spicy Tuna Crispy Rice"/>
+        <div class="feat-card-info">
+          <div class="feat-card-name">Crispy Rice Tuna</div>
+          <div class="feat-card-tag">Small Plates · Jalapeño</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-text">
+      <div class="s-eyebrow">Our Story</div>
+      <h2 class="s-title">Born Between<br/><em>Two Cultures.</em></h2>
+      <p>
+        KŌSAI — meaning "radiance" in Japanese — was born from a single idea:
+        that the precision of Japanese culinary tradition and the bold, vibrant energy
+        of Miami are more alike than different.
+      </p>
+      <p>
+        Our team sources fish flown in from Tsukiji twice weekly, pairs it
+        with Florida-grown produce, and finishes each plate over imported
+        binchotan charcoal. Technique is Japanese. Soul is Miami.
+      </p>
+      <div class="about-stat-row">
+        <div>
+          <div class="about-stat-num">14</div>
+          <div class="about-stat-label">Seats · Omakase Bar</div>
+        </div>
+        <div>
+          <div class="about-stat-num">2×</div>
+          <div class="about-stat-label">Weekly Tsukiji Delivery</div>
+        </div>
+        <div>
+          <div class="about-stat-num">★ 4.9</div>
+          <div class="about-stat-label">Google Rating</div>
+        </div>
+      </div>
+      <a href="#reservations" class="btn-primary about-btn">Book the Omakase Bar</a>
+    </div>
+    <div class="about-images">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="KŌSAI dining room"/>
+      <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80" alt="Chef at omakase bar"/>
+    </div>
+  </section>
+
+  <!-- MENU PREVIEW -->
+  <section id="menu-preview">
+    <div class="s-eyebrow">The Menu</div>
+    <h2 class="s-title">A Journey in<br/><em>Every Bite.</em></h2>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=700&q=80" alt="Omakase"/>
+        <div class="menu-item-overlay">
+          <div class="menu-item-cat">Omakase</div>
+          <div class="menu-item-name">Chef's Tasting<br/>Experience</div>
+          <div class="menu-item-desc">12-course chef-driven progression. Market fish, A5 wagyu, seasonal truffle.</div>
+          <div class="menu-item-price">$195 per person</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=700&q=80" alt="Robata"/>
+        <div class="menu-item-overlay">
+          <div class="menu-item-cat">Robata Grill</div>
+          <div class="menu-item-name">Binchotan<br/>Signatures</div>
+          <div class="menu-item-desc">Grilled over white charcoal. Wagyu short rib, black cod miso, tiger prawn.</div>
+          <div class="menu-item-price">From $28</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=700&q=80" alt="Bowls"/>
+        <div class="menu-item-overlay">
+          <div class="menu-item-cat">Noodles &amp; Bowls</div>
+          <div class="menu-item-name">Signature<br/>Ramen</div>
+          <div class="menu-item-desc">48-hour tonkotsu broth, house-made noodles, wagyu chashu, soft egg.</div>
+          <div class="menu-item-price">From $24</div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-cta-row">
+      <a href="#" class="btn-ghost">View Full Menu PDF</a>
+    </div>
+  </section>
+
+  <!-- HAPPY HOUR -->
+  <section id="happy-hour">
+    <div class="hh-image">
+      <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=900&q=80" alt="KŌSAI cocktails"/>
+    </div>
+    <div class="hh-content">
+      <div class="hh-label">Daily · Monday – Friday</div>
+      <div class="hh-time">Happy<br/>Hour</div>
+      <div class="hh-label" style="margin-top:.6rem;margin-bottom:0;">4:00 PM — 7:00 PM</div>
+      <div class="hh-items">
+        <div class="hh-item">
+          <span class="hh-item-name">All Cocktails</span>
+          <span class="hh-item-price">$12</span>
+        </div>
+        <div class="hh-item">
+          <span class="hh-item-name">Draft Beer &amp; Sake</span>
+          <span class="hh-item-price">$8</span>
+        </div>
+        <div class="hh-item">
+          <span class="hh-item-name">Crispy Rice (2 pcs)</span>
+          <span class="hh-item-price">$10</span>
+        </div>
+        <div class="hh-item">
+          <span class="hh-item-name">Robata Skewers (2 pcs)</span>
+          <span class="hh-item-price">$14</span>
+        </div>
+        <div class="hh-item">
+          <span class="hh-item-name">Edamame &amp; Tsukemono</span>
+          <span class="hh-item-price">$6</span>
+        </div>
+      </div>
+      <p class="hh-note">Bar &amp; lounge seating only. No reservations required during happy hour. Walk-ins welcome.</p>
+      <a href="#reservations" class="hh-btn">Reserve for Dinner</a>
+    </div>
+  </section>
+
+  <!-- RESERVATIONS -->
+  <section id="reservations">
+    <div class="res-info">
+      <div class="s-eyebrow">Book a Table</div>
+      <h2 class="s-title">Your Table<br/><em>Awaits.</em></h2>
+      <div class="res-detail">
+        <div class="res-detail-item">
+          <div class="res-detail-icon">📍</div>
+          <div>
+            <div class="res-detail-label">Location</div>
+            <div class="res-detail-val">1420 S Miami Ave, Suite 100<br/>Brickell, Miami, FL 33130</div>
+          </div>
+        </div>
+        <div class="res-detail-item">
+          <div class="res-detail-icon">🕐</div>
+          <div>
+            <div class="res-detail-label">Hours</div>
+            <div class="res-detail-val">Mon–Fri: 5 PM – 2 AM<br/>Sat–Sun: 12 PM – 2 AM<br/>Happy Hour: Mon–Fri 4–7 PM</div>
+          </div>
+        </div>
+        <div class="res-detail-item">
+          <div class="res-detail-icon">📞</div>
+          <div>
+            <div class="res-detail-label">Phone</div>
+            <div class="res-detail-val"><a href="tel:+13057492100">(305) 749-2100</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="res-form" id="res-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-first">First Name</label>
+          <input type="text" id="f-first" name="first_name" placeholder="Kenji" required/>
+        </div>
+        <div class="form-group">
+          <label for="f-last">Last Name</label>
+          <input type="text" id="f-last" name="last_name" placeholder="Torres" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="f-email">Email</label>
+        <input type="email" id="f-email" name="email" placeholder="you@example.com" required/>
+      </div>
+      <div class="form-group">
+        <label for="f-phone">Phone</label>
+        <input type="tel" id="f-phone" name="phone" placeholder="(305) 000-0000"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-date">Date</label>
+          <input type="date" id="f-date" name="date" required/>
+        </div>
+        <div class="form-group">
+          <label for="f-time">Time</label>
+          <select id="f-time" name="time" required>
+            <option value="">Select time</option>
+            <option>5:00 PM</option><option>5:30 PM</option>
+            <option>6:00 PM</option><option>6:30 PM</option>
+            <option>7:00 PM</option><option>7:30 PM</option>
+            <option>8:00 PM</option><option>8:30 PM</option>
+            <option>9:00 PM</option><option>9:30 PM</option>
+            <option>10:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-guests">Guests</label>
+          <select id="f-guests" name="guests" required>
+            <option value="">Party size</option>
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option><option>6</option>
+            <option>7+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="f-occasion">Occasion</label>
+          <select id="f-occasion" name="occasion">
+            <option value="">Select (optional)</option>
+            <option>Birthday</option><option>Anniversary</option>
+            <option>Business Dinner</option><option>Date Night</option>
+            <option>Omakase Bar</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="f-notes">Special Requests</label>
+        <textarea id="f-notes" name="notes" placeholder="Dietary restrictions, allergies, special setup..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Request Reservation</button>
+    </form>
+  </section>
+
+  <!-- ORDER CTA -->
+  <section id="order-cta">
+    <div class="bg">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80" alt="Order KŌSAI online"/>
+    </div>
+    <div class="order-box">
+      <div class="s-eyebrow">Skip the Line</div>
+      <h2 class="s-title">Order <em>Online.</em></h2>
+      <p>Get KŌSAI delivered to your door or ready for curbside pickup. Fresh ingredients, same kitchen — just closer to home.</p>
+      <div class="order-options">
+        <a href="tel:+13057492100" class="btn-primary">Order Pickup</a>
+        <a href="#" class="btn-ghost">Order Delivery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">KŌ<span>SAI</span></div>
+        <p class="footer-tagline">Modern Japanese fusion in the heart of Brickell, Miami. Where Tokyo meets Miami — every night.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-link" aria-label="Instagram">IG</a>
+          <a href="#" class="social-link" aria-label="Facebook">FB</a>
+          <a href="#" class="social-link" aria-label="TikTok">TT</a>
+          <a href="#" class="social-link" aria-label="OpenTable">OT</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigate</div>
+        <ul>
+          <li><a href="#menu-preview">Our Menu</a></li>
+          <li><a href="#happy-hour">Happy Hour</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#reservations">Reservations</a></li>
+          <li><a href="#order-cta">Order Online</a></li>
+          <li><a href="#">Private Dining</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Hours</div>
+        <div class="footer-hours-row"><span class="day">Mon – Fri</span><span>5 PM – 2 AM</span></div>
+        <div class="footer-hours-row"><span class="day">Sat – Sun</span><span>12 PM – 2 AM</span></div>
+        <div class="footer-hours-row"><span class="day">Happy Hour</span><span>4 – 7 PM</span></div>
+        <div style="margin-top:1.2rem;font-size:.72rem;color:rgba(245,240,232,.35);">Kitchen closes 30 min before close</div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul>
+          <li><a href="https://maps.google.com/?q=1420+S+Miami+Ave+Miami+FL" target="_blank" rel="noopener">1420 S Miami Ave<br/>Brickell, FL 33130</a></li>
+          <li><a href="tel:+13057492100">(305) 749-2100</a></li>
+          <li><a href="mailto:hello@kosaimiami.com">hello@kosaimiami.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-legal">© 2026 KŌSAI Miami. All rights reserved.</span>
+      <span class="footer-legal">Privacy · Accessibility</span>
+    </div>
+  </footer>
+
+  <!-- FIXED BOTTOM BAR -->
+  <div class="em-bar" id="em-bar">
+    <span class="em-bar-text"><strong>KŌSAI Miami</strong> — Happy Hour runs daily 4–7 PM · Bar seating available now</span>
+    <a href="#reservations">Reserve Tonight</a>
+    <button class="em-bar-close" id="em-close" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.normalizeScroll(false);
+
+    // ── Nav scroll shadow
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── Hero entrance animations (staggered, no ScrollTrigger — fires on load)
+    gsap.to('#h-eyebrow', { opacity:1, y:0, duration:.9, delay:.3, ease:'power3.out' });
+    gsap.to('#h-title',   { opacity:1, y:0, duration:1,  delay:.55, ease:'power3.out' });
+    gsap.to('#h-sub',     { opacity:1, y:0, duration:.9, delay:.8,  ease:'power3.out' });
+    gsap.to('#h-btns',    { opacity:1, y:0, duration:.8, delay:1.0, ease:'power3.out' });
+    gsap.to('#h-scroll',  { opacity:1,      duration:1,  delay:1.4, ease:'power2.out' });
+
+    // ── Featured cards stagger
+    gsap.to('#feat-scroll .feat-card', {
+      opacity:1, y:0, duration:.75, stagger:.12, ease:'power3.out',
+      scrollTrigger: { trigger:'#featured', start:'top 80%', once:true }
+    });
+
+    // ── Menu items stagger
+    gsap.to('.menu-item', {
+      opacity:1, y:0, duration:.75, stagger:.15, ease:'power3.out',
+      scrollTrigger: { trigger:'#menu-preview', start:'top 75%', once:true }
+    });
+
+    // ── Order CTA slide in
+    gsap.to('.order-box', {
+      opacity:1, x:0, duration:.85, ease:'power3.out',
+      scrollTrigger: { trigger:'#order-cta', start:'top 70%', once:true }
+    });
+
+    // ── About text fade
+    gsap.from('.about-text > *', {
+      opacity:0, y:22, duration:.7, stagger:.12, ease:'power3.out',
+      scrollTrigger: { trigger:'#about', start:'top 75%', once:true }
+    });
+
+    // ── Reservations form fade
+    gsap.from('.res-form > *', {
+      opacity:0, y:18, duration:.65, stagger:.07, ease:'power3.out',
+      scrollTrigger: { trigger:'#reservations', start:'top 70%', once:true }
+    });
+
+    // ── Dismiss bottom bar
+    document.getElementById('em-close').addEventListener('click', () => {
+      document.getElementById('em-bar').style.display = 'none';
+      document.body.style.paddingBottom = '0';
+    });
+
+    // ── Hamburger (mobile)
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = '';
+      } else {
+        Object.assign(links.style, {
+          display:'flex', flexDirection:'column', position:'fixed',
+          top:'72px', left:'0', right:'0', background:'rgba(8,8,8,.97)',
+          padding:'2rem 2rem 3rem', gap:'1.8rem', zIndex:'99'
+        });
+      }
+    });
+  </script>
+</body>
+</html>
