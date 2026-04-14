@@ -13,6 +13,7 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Restaurant","name":"KŌSAI Miami","servesCuisine":"Japanese Fusion","priceRange":"$$$","address":{"@type":"PostalAddress","streetAddress":"1420 S Miami Ave","addressLocality":"Miami","addressRegion":"FL","postalCode":"33130"},"telephone":"+13057492100","openingHours":["Mo-Fr 17:00-02:00","Sa-Su 12:00-02:00"],"url":"https://kosaimiami.com"}
   </script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍱</text></svg>"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -33,7 +34,7 @@
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: auto !important; font-size: 16px; }
-    body { background: var(--black); color: var(--fg); font-family: var(--fs); overflow-x: hidden; padding-bottom: 72px; }
+    body { background: var(--black); color: var(--fg); font-family: var(--fs); overflow-x: hidden; padding-bottom: 72px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
 
@@ -662,6 +663,58 @@
     .res-success-row strong { color: var(--white); font-weight: 400; }
     .res-new-btn { margin-top: .5rem; }
 
+    /* ── PRESS STRIP ── */
+    #press {
+      padding: 3.5rem 7vw;
+      background: var(--dark);
+      border-top: 1px solid rgba(200,169,110,.1);
+      border-bottom: 1px solid rgba(200,169,110,.1);
+    }
+    .press-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    }
+    .press-item { flex: 1; text-align: center; }
+    .press-quote {
+      font-family: var(--fc); font-size: clamp(.95rem, 1.4vw, 1.1rem);
+      font-style: italic; font-weight: 300; color: var(--white); line-height: 1.45;
+      margin-bottom: .65rem;
+    }
+    .press-source {
+      font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold);
+    }
+    .press-sep {
+      width: 1px; height: 56px; background: rgba(200,169,110,.2); flex-shrink: 0;
+    }
+    @media (max-width: 720px) {
+      .press-inner { flex-direction: column; gap: 1.8rem; }
+      .press-sep { width: 40px; height: 1px; }
+    }
+
+    /* ── GALLERY STRIP ── */
+    #gallery { overflow: hidden; }
+    .gallery-strip {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px;
+    }
+    .gallery-img { overflow: hidden; }
+    .gallery-img img {
+      width: 100%; aspect-ratio: 1/1; object-fit: cover;
+      transition: transform .6s var(--ease), filter .5s;
+      filter: brightness(.65) saturate(.7);
+    }
+    .gallery-img:hover img { transform: scale(1.06); filter: brightness(.88) saturate(1.1); }
+    .gallery-caption {
+      padding: 1.4rem 7vw; text-align: center;
+      font-size: .62rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--gold); background: var(--dark);
+      border-bottom: 1px solid rgba(200,169,110,.1);
+    }
+    .gallery-caption a { color: var(--gold); transition: color .2s; }
+    .gallery-caption a:hover { color: var(--gold2); }
+    @media (max-width: 720px) {
+      .gallery-strip { grid-template-columns: repeat(3, 1fr); }
+      .gallery-strip .gallery-img:nth-child(n+4) { display: none; }
+    }
+
     /* ── SCROLL PROGRESS ── */
     #scroll-progress {
       position: fixed; top: 0; left: 0; z-index: 9999;
@@ -794,15 +847,15 @@
 
         <div class="about-stat-row">
           <div class="about-stat">
-            <span class="about-stat-num">14</span>
+            <span class="about-stat-num" data-count="14" data-suffix="">14</span>
             <span class="about-stat-label">Omakase Seats</span>
           </div>
           <div class="about-stat">
-            <span class="about-stat-num">2×</span>
+            <span class="about-stat-num" data-count="2" data-suffix="×">2×</span>
             <span class="about-stat-label">Tsukiji Weekly</span>
           </div>
           <div class="about-stat">
-            <span class="about-stat-num">4.9★</span>
+            <span class="about-stat-num" data-count="4.9" data-suffix="★">4.9★</span>
             <span class="about-stat-label">Google Rating</span>
           </div>
         </div>
@@ -810,6 +863,26 @@
         <a href="#reservations" class="btn-primary about-btn">Book the Omakase Bar</a>
       </div>
 
+    </div>
+  </section>
+
+  <!-- PRESS STRIP -->
+  <section id="press">
+    <div class="press-inner">
+      <div class="press-item">
+        <div class="press-quote">"One of Miami's most exciting restaurant openings this year."</div>
+        <div class="press-source">— Miami Herald</div>
+      </div>
+      <div class="press-sep"></div>
+      <div class="press-item">
+        <div class="press-quote">"A worthy destination for omakase devotees heading south."</div>
+        <div class="press-source">— Eater Miami</div>
+      </div>
+      <div class="press-sep"></div>
+      <div class="press-item">
+        <div class="press-quote">"The most inventive cocktail program south of Fifth Street."</div>
+        <div class="press-source">— Timeout Miami</div>
+      </div>
     </div>
   </section>
 
@@ -894,21 +967,21 @@
       <h2 class="s-title">Your Table<br/><em>Awaits.</em></h2>
       <div class="res-detail">
         <div class="res-detail-item">
-          <div class="res-detail-icon">📍</div>
+          <div class="res-detail-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <div>
             <div class="res-detail-label">Location</div>
             <div class="res-detail-val">1420 S Miami Ave, Suite 100<br/>Brickell, Miami, FL 33130</div>
           </div>
         </div>
         <div class="res-detail-item">
-          <div class="res-detail-icon">🕐</div>
+          <div class="res-detail-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <div>
             <div class="res-detail-label">Hours</div>
             <div class="res-detail-val">Mon–Fri: 5 PM – 2 AM<br/>Sat–Sun: 12 PM – 2 AM<br/>Happy Hour: Mon–Fri 4–7 PM</div>
           </div>
         </div>
         <div class="res-detail-item">
-          <div class="res-detail-icon">📞</div>
+          <div class="res-detail-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.17a16 16 0 006.92 6.92l1.24-1.24a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
           <div>
             <div class="res-detail-label">Phone</div>
             <div class="res-detail-val"><a href="tel:+13057492100">(305) 749-2100</a></div>
@@ -1004,6 +1077,18 @@
         <a href="#" class="btn-ghost">Order Delivery</a>
       </div>
     </div>
+  </section>
+
+  <!-- GALLERY STRIP -->
+  <section id="gallery">
+    <div class="gallery-strip">
+      <div class="gallery-img"><img src="https://images.unsplash.com/photo-1514190051997-0f6f39ca5cde?w=600&q=80" alt="KŌSAI interior" loading="lazy"/></div>
+      <div class="gallery-img"><img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" alt="KŌSAI sushi" loading="lazy"/></div>
+      <div class="gallery-img"><img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&q=80" alt="KŌSAI cocktails" loading="lazy"/></div>
+      <div class="gallery-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="KŌSAI robata" loading="lazy"/></div>
+      <div class="gallery-img"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&q=80" alt="KŌSAI chef" loading="lazy"/></div>
+    </div>
+    <div class="gallery-caption">Follow the experience &nbsp;·&nbsp; <a href="#">@kosaimiami</a></div>
   </section>
 
   <!-- FOOTER -->
@@ -1210,8 +1295,9 @@
   <!-- SCRIPTS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
   <script>
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
     ScrollTrigger.normalizeScroll(false);
 
     // ── Scroll progress bar
@@ -1377,6 +1463,68 @@
         gsap.from(resSuccess.children, { opacity:0, y:18, duration:.55, stagger:.1, ease:'power3.out' });
       }});
     });
+
+    // ── Smooth scroll for all anchor links ──────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        gsap.to(window, { scrollTo: { y: target, offsetY: 72 }, duration: .9, ease: 'power2.inOut' });
+      });
+    });
+
+    // ── About stats counter ──────────────────────────────
+    function animateCounter(el) {
+      const target = parseFloat(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const isDecimal = String(target).includes('.');
+      const duration = 1400;
+      const start = performance.now();
+      function update(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = target * eased;
+        el.textContent = (isDecimal ? val.toFixed(1) : Math.round(val)) + suffix;
+        if (p < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+    ScrollTrigger.create({
+      trigger: '#about', start: 'top 70%', once: true,
+      onEnter: () => document.querySelectorAll('.about-stat-num[data-count]').forEach(animateCounter)
+    });
+
+    // ── Happy Hour entrance ──────────────────────────────
+    gsap.from('.hh-image img', {
+      scale: 1.08, duration: 1.2, ease: 'power3.out',
+      scrollTrigger: { trigger: '#happy-hour', start: 'top 80%', once: true }
+    });
+    gsap.from('.hh-content > *', {
+      opacity: 0, x: 28, duration: .75, stagger: .1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#happy-hour', start: 'top 70%', once: true }
+    });
+
+    // ── Press strip entrance ─────────────────────────────
+    gsap.from('.press-item', {
+      opacity: 0, y: 18, duration: .65, stagger: .15, ease: 'power3.out',
+      scrollTrigger: { trigger: '#press', start: 'top 82%', once: true }
+    });
+
+    // ── Gallery entrance ─────────────────────────────────
+    gsap.from('.gallery-img', {
+      opacity: 0, scale: .96, duration: .6, stagger: .08, ease: 'power3.out',
+      scrollTrigger: { trigger: '#gallery', start: 'top 85%', once: true }
+    });
+
+    // ── Footer entrance ──────────────────────────────────
+    gsap.from('footer .footer-grid > *', {
+      opacity: 0, y: 22, duration: .7, stagger: .1, ease: 'power3.out',
+      scrollTrigger: { trigger: 'footer', start: 'top 88%', once: true }
+    });
+
   </script>
 </body>
 </html>
